@@ -8,7 +8,7 @@ public class Checkers extends JFrame {
         super();
         setSettings();
 
-        Board board = new Board();
+        DrawBoard board = new DrawBoard();
         getContentPane().add(board);
     }
 
