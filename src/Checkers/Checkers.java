@@ -10,6 +10,9 @@ public class Checkers extends JFrame {
 
         DrawBoard board = new DrawBoard();
         getContentPane().add(board);
+
+        DrawChecker checker = new DrawChecker(100, 100, 75, TypeChecker.WHITE);
+        getContentPane().add(checker);
     }
 
     void setSettings() {

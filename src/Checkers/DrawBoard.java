@@ -5,10 +5,25 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
-public class DrawBoard extends JPanel {
-    int delta, side, sideRectangle, step;
-    Graphics2D graphics2D = null;
-    Graphics graphics = null;
+public class DrawBoard extends JLabel {
+    private Graphics2D graphics2D = null;
+    private int delta, side, sideRectangle, step;
+
+    int getDelta() {
+        return delta;
+    }
+
+    int getSide() {
+        return side;
+    }
+
+    int getSideRectangle() {
+        return sideRectangle;
+    }
+
+    int getStep() {
+        return step;
+    }
 
     @Override
     public void paintComponent(Graphics graphics) {
@@ -16,7 +31,6 @@ public class DrawBoard extends JPanel {
         this.delta = 4 * side / 100;
         this.sideRectangle = side - 2 * delta;
         this.step = sideRectangle / 8;
-        this.graphics = graphics;
         this.graphics2D = (Graphics2D) graphics;
 
         drawBoard();
@@ -39,7 +53,7 @@ public class DrawBoard extends JPanel {
     private void drawVerticalLines() {
         Line2D.Double[] lines = new Line2D.Double[7];
 
-        for(int i = 0, position = delta + step; i < 7; i++) {
+        for(int i = 0, position = delta + step; i < lines.length; i++) {
             lines[i] = new Line2D.Double(position, delta, position, side - delta);
             position = delta + step * (i + 2);
             graphics2D.draw(lines[i]);
@@ -49,7 +63,7 @@ public class DrawBoard extends JPanel {
     private void drawHorizontalLines() {
         Line2D.Double[] lines = new Line2D.Double[7];
 
-        for(int i = 0, position = delta + step; i < 7; i++) {
+        for(int i = 0, position = delta + step; i < lines.length; i++) {
             lines[i] = new Line2D.Double(delta, position, side - delta, position);
             position = delta + step * (i + 2);
             graphics2D.draw(lines[i]);
@@ -85,5 +99,4 @@ public class DrawBoard extends JPanel {
         graphics2D.setColor(Color.BLACK);
         graphics2D.fillRect(x, y, side, side);
     }
-
 }
