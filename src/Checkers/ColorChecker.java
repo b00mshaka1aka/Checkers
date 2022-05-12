@@ -1,5 +1,5 @@
 package Checkers;
 
-public enum TypeChecker {
+public enum ColorChecker {
     WHITE, BLACK
 }

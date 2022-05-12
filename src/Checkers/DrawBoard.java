@@ -5,25 +5,9 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
-public class DrawBoard extends JLabel {
+public class DrawBoard extends JComponent {
     private Graphics2D graphics2D = null;
     private int delta, side, sideRectangle, step;
-
-    int getDelta() {
-        return delta;
-    }
-
-    int getSide() {
-        return side;
-    }
-
-    int getSideRectangle() {
-        return sideRectangle;
-    }
-
-    int getStep() {
-        return step;
-    }
 
     @Override
     public void paintComponent(Graphics graphics) {
@@ -34,6 +18,14 @@ public class DrawBoard extends JLabel {
         this.graphics2D = (Graphics2D) graphics;
 
         drawBoard();
+    }
+
+    public int getDelta() {
+        return delta;
+    }
+
+    public int getStep() {
+        return step;
     }
 
     private void drawBoard() {
@@ -96,7 +88,12 @@ public class DrawBoard extends JLabel {
     }
 
     private void fillField(int x, int y, int side) {
-        graphics2D.setColor(Color.BLACK);
+        setBlackGradient(x, y ,side);
         graphics2D.fillRect(x, y, side, side);
+    }
+
+    private void setBlackGradient(int x, int y, int side) {
+        GradientPaint paint = new GradientPaint(x, y, Color.BLACK, x + side, y + side, Color.WHITE);
+        graphics2D.setPaint(paint);
     }
 }

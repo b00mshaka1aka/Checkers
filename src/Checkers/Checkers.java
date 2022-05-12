@@ -2,17 +2,27 @@ package Checkers;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Checkers extends JFrame {
-    Checkers() {
+    private Board board;
+
+    Checkers() throws IOException {
         super();
         setSettings();
 
-        DrawBoard board = new DrawBoard();
-        getContentPane().add(board);
+        board = new Board();
+        add(board);
+    }
 
-        DrawChecker checker = new DrawChecker(100, 100, 75, TypeChecker.WHITE);
-        getContentPane().add(checker);
+    public void test() {
+        Scanner in = new Scanner(System.in);
+        while(true) {
+            int x = in.nextInt();
+            int y = in.nextInt();
+            board.setCheckerOnBoard(x, y);
+        }
     }
 
     void setSettings() {

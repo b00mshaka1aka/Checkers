@@ -3,20 +3,13 @@ package Checkers;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.QuadCurve2D;
-import java.security.spec.EllipticCurve;
 
-public class DrawChecker extends JLabel {
+public class DrawChecker extends JComponent {
     private Graphics2D graphics2D = null;
-    private int x, y, radius;
-    private TypeChecker typeChecker;
+    private final ColorChecker colorChecker;
 
-    DrawChecker(int x, int y, int radius, TypeChecker typeChecker) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        this.typeChecker = typeChecker;
+    DrawChecker(ColorChecker colorChecker) {
+        this.colorChecker = colorChecker;
     }
 
     @Override
@@ -26,13 +19,20 @@ public class DrawChecker extends JLabel {
     }
 
     private void drawChecker() {
-        Ellipse2D.Double circle = new Ellipse2D.Double(x, y, radius, radius);
-        BasicStroke basicStroke = new BasicStroke(radius / 4, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+        int delta = 5;
+        int lineThickness = getWidth() / 4;
+        int radius = (2 * getWidth()) / 3 + lineThickness / 2 - (2 * delta);
 
-        graphics2D.setColor(typeChecker == TypeChecker.BLACK ? Color.WHITE : Color.BLACK);
+        int x = (lineThickness / 2) + delta;
+        int y = (lineThickness / 2) + delta;
+
+        Ellipse2D.Double circle = new Ellipse2D.Double(x, y, radius, radius);
+        BasicStroke basicStroke = new BasicStroke(lineThickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+
+        graphics2D.setColor(colorChecker == ColorChecker.BLACK ? Color.WHITE : Color.BLACK);
         graphics2D.setStroke(basicStroke);
         graphics2D.draw(circle);
-        graphics2D.setColor(typeChecker == TypeChecker.BLACK ? Color.BLACK : Color.WHITE);
+        graphics2D.setColor(colorChecker == ColorChecker.BLACK ? Color.BLACK : Color.WHITE);
         graphics2D.fillOval(x, y, radius, radius);
     }
 }
