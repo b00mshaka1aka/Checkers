@@ -3,26 +3,13 @@ package Checkers;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Checkers extends JFrame {
-    private Board board;
-
-    Checkers() throws IOException {
+    Checkers() {
         super();
         setSettings();
 
-        board = new Board();
-        add(board);
-    }
-
-    public void test() {
-        Scanner in = new Scanner(System.in);
-        while(true) {
-            int x = in.nextInt();
-            int y = in.nextInt();
-            board.setCheckerOnBoard(x, y);
-        }
+        Game game = new Game(this);
     }
 
     void setSettings() {

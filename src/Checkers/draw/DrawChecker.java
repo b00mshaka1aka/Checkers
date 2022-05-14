@@ -1,4 +1,6 @@
-package Checkers;
+package Checkers.draw;
+
+import Checkers.enums.ColorChecker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +10,7 @@ public class DrawChecker extends JComponent {
     private Graphics2D graphics2D = null;
     private final ColorChecker colorChecker;
 
-    DrawChecker(ColorChecker colorChecker) {
+    public DrawChecker(ColorChecker colorChecker) {
         this.colorChecker = colorChecker;
     }
 

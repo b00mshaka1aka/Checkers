@@ -1,4 +1,6 @@
-package Checkers;
+package Checkers.draw;
+
+import Checkers.enums.ColorGradient;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,8 +8,10 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
 public class DrawBoard extends JComponent {
+    private final DrawFields drawFields = new DrawFields();
     private Graphics2D graphics2D = null;
     private int delta, side, sideRectangle, step;
+    private boolean isOne = true;
 
     @Override
     public void paintComponent(Graphics graphics) {
@@ -16,6 +20,14 @@ public class DrawBoard extends JComponent {
         this.sideRectangle = side - 2 * delta;
         this.step = sideRectangle / 8;
         this.graphics2D = (Graphics2D) graphics;
+
+        drawFields.recalculateDrawFields(delta, step);
+        drawFields.fillFields(graphics2D);
+
+        if(isOne) {
+            drawFields.setBlackFields();
+            isOne = false;
+        }
 
         drawBoard();
     }
@@ -34,10 +46,11 @@ public class DrawBoard extends JComponent {
         drawHorizontalLines();
         drawLetters();
         drawNumbers();
-        fillBlackField();
     }
 
     private void drawRectangle() {
+        graphics2D.setColor(Color.BLACK);
+        graphics2D.setPaint(null);
         Rectangle2D rectangle =  new Rectangle2D.Double(delta, delta, sideRectangle, sideRectangle);
         graphics2D.draw(rectangle);
     }
@@ -80,20 +93,8 @@ public class DrawBoard extends JComponent {
         }
     }
 
-    private void fillBlackField() {
-        for(int i = 0; i < 8; i++)
-            for(int j = 0; j < 8; j++)
-                if((i + j) % 2 == 1)
-                     fillField(delta + step * i, delta + step * j, step);
-    }
-
-    private void fillField(int x, int y, int side) {
-        setBlackGradient(x, y ,side);
-        graphics2D.fillRect(x, y, side, side);
-    }
-
-    private void setBlackGradient(int x, int y, int side) {
-        GradientPaint paint = new GradientPaint(x, y, Color.BLACK, x + side, y + side, Color.WHITE);
-        graphics2D.setPaint(paint);
+    public void setColorGradientField(ColorGradient colorGradient, int x, int y) {
+        drawFields.setColorGradientField(colorGradient, x - 1, y - 1);
+        repaint();
     }
 }
